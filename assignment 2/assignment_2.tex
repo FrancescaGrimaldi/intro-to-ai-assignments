@@ -1,0 +1,234 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{titling}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[]{graphicx}
+\graphicspath{Images}
+\graphicspath{{images/}}
+
+% Page size and margins
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Language setting
+\usepackage[english]{babel}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{minted}
+
+% Header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{} % empties all fields
+\fancyhead[R]{Filippini, Grimaldi}
+\fancyhead[L]{TDT4136 - Assignment 2}
+
+% Images
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{float}
+
+% Tables
+\usepackage{tabu}
+\usepackage{caption} 
+\captionsetup[table]{skip=2pt}
+\usepackage[table]{xcolor}
+\usepackage{array}
+
+% Lists
+\usepackage{listings}
+\usepackage{enumitem}
+\setlist{topsep=2pt, itemsep=2pt, partopsep=2pt, parsep=2pt}
+
+% renew/new command
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}
+}
+
+% Title and info
+\title{%
+    \huge Assignment 2}
+
+\subtitle{%
+    TDT4136 - Introduction to Artificial Intelligence\\
+    Fall 2023
+    }
+
+\author{%
+  Elena Filippini\\
+  Francesca Grimaldi
+}
+
+\date{}
+
+
+\begin{document}
+
+% TITLE
+\maketitle
+
+
+% INDEX
+% \tableofcontents
+
+
+% PART 1
+\section{Part 1}
+    We adapted the implementation of the A* algorithm available at "redblobgames" as the foundational framework for our own implementation, that can be found at \cite{red}.
+    We instantiate a Map object from the code provided during the assignment lecture.
+    The heuristic \texttt{h} uses Manhattan distance, although it is possible to choose the Euclidean one.
+    We decided to represent the Manhattan distance, as it better suits the scenario described in the handout.
+    
+    The cost function is composed of \texttt{h} and \texttt{g}, where \texttt{g} is \texttt{cost\_to\_node}.
+    We utilized the Python \texttt{PriorityQueue} library to create the frontier, where we store the current node along with its corresponding cost. Additionally, we implemented the \texttt{neighbors} method, which calculates the coordinates to the north, east, south, and west of a given node, while also ensuring that they remain within the map boundaries.
+
+    The A* algorithm is executed inside the \texttt{find\_path} method, which in the end draws the optimal path from the goal node retracing its steps back to the starting node, by following the predecessor nodes. Each node along this path is marked in purple by updating its cell value to the specified character "\texttt{-}".
+
+    The first and the second task both revolve around finding the shortest path between two locations without encountering obstacles, regardless of the cell values (being set to 1 in Task 1), as they do not impact the cost function.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figure/Screenshot (70).png}
+    \caption{2-D map of the building}
+    \label{fig:map1}
+    \end{figure}
+
+    
+    \subsection{Task 1}
+
+In task 1, as shown in \ref{fig:map1}, we are starting from Rundhallen and we are reaching Strossa.
+All the cells have the same costs, therefore are all displayed with the same colour. 
+It is visible from figure \ref{fig:path1} that the shortest path has been selected.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.4 \textwidth}
+    \includegraphics[width=\textwidth]{figure/map1 (1).png}
+    \caption{Initial scenario with start node in magenta and ending node in blue}
+    \label{fig:map1}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.4\textwidth}
+    \includegraphics[width=\textwidth]{figure/path1.png}
+    \caption{Scenario with shortest path displayed}
+    \label{fig:path1}
+\end{subfigure}
+\caption{Task 1: initial scenario and final scenario with path displayed}
+\end{figure}
+
+\subsection{Task 2}
+
+In this second task the start node is in Strossa and the goal is in Selkstapssiden, as shown in \ref{fig:map2}.
+Also in this case it is evident from figure \ref{fig:path2} that the path selected is the shortest one among the one possible ones.
+
+   \begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.4 \textwidth}
+    \includegraphics[width=\textwidth]{figure/map2 (1).png}
+    \caption{Initial scenario with start node in magenta and ending node in blue}
+    \label{fig:map2}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.4 \textwidth}
+    \includegraphics[width=\textwidth]{figure/path2.png}
+    \caption{Scenario with shortest path displayed}
+    \label{fig:path2}
+\end{subfigure}
+\caption{Task 2 initial and ending state}
+\end{figure}
+
+% PART 2
+\section{Part 2}
+
+ As mentioned before, in Part 1 all cell values are set to 1, and the only requirement is that the cell is not an obstacle (a condition that is verified within the \texttt{neighbors} method). 
+ Instead, in this task each cell has a different cost, described in figure \ref{costs}.
+ 
+ Since we make use of the \texttt{get\_cell\_value()} method from the Map object, our code remains consistent regardless of whether we are working on Part 1 or Part 2, as their settings are automatically determined when selecting the task.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figure/Screenshot (71).png}
+    \caption{Different cell costs}
+    \label{costs}
+    \end{figure}
+
+The maps \ref{fig:map3} and \ref{fig:map4} illustrate that areas shaded in darker grey represent higher costs.
+
+\subsection{Task 3}
+
+The figure \ref{task3} demonstrates that the chosen path considers the fewest grey cells while still being the shortest route.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.4 \textwidth}
+    \includegraphics[width=\textwidth]{figure/map3 (1).png}
+    \caption{Initial scenario with start node in purple and ending node in blue}
+    \label{fig:map3}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.4\textwidth}
+    \includegraphics[width=\textwidth]{figure/path3.png}
+    \caption{Scenario with shortest path displayed}
+    \label{fig:path3}
+\end{subfigure}
+\caption{Task 3: initial scenario and final scenario with path displayed}
+\label{task3}
+\end{figure}
+
+\subsection{Task 4}
+The goal of this fourth scenario is the same as the one in the third, but the "Edgar" room, which was previously walked through, experiences a cost increase, reaching its maximum value.
+Therefore, the selected path is changed, as it becomes more expensive to navigate through the dark building and follow the grey path, compared to circumventing it by passing through Rundhallen.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.4 \textwidth}
+    \includegraphics[width=\textwidth]{figure/map4.png}
+    \caption{Initial scenario with start node in purple and ending node in blue}
+    \label{fig:map4}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.4\textwidth}
+    \includegraphics[width=\textwidth]{figure/path4.png}
+    \caption{Scenario with shortest path displayed}
+    \label{fig:path4}
+\end{subfigure}
+\caption{Task 4: initial scenario and final scenario with path displayed}
+\label{fig:task4}
+\end{figure}
+
+% PART 3
+\section{Part 3}
+
+\subsection{Task 5}
+The fifth task distinguishes itself from the previous ones by incorporating a dynamic objective. The goal initially resides in Klubben and gradually shifts towards Selskapssiden, moving one cell every 4 iterations.
+
+To enable this behavior, we introduced the variable \texttt{task} as an input parameter to the \texttt{find\_path} function, which in turn transfers it to the A* algorithm. Consequently, the algorithm assesses whether the goal is in motion. If it is, the algorithm invokes the \texttt{ticks} method, which is part of the provided code\_handout \cite{code}, responsible for updating the goal's position by one cell for every four calls.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.4 \textwidth}
+    \includegraphics[width=\textwidth]{figure/Screenshot (76).png}
+    \caption{Initial scenario with start node in purple and ending node in blue}
+    \label{fig:map5}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.4\textwidth}
+    \includegraphics[width=\textwidth]{figure/Screenshot (74).png}
+    \caption{Final scenario, where the goal has moved}
+    \label{fig:path5}
+\end{subfigure}
+\caption{Task 5: initial scenario and final scenario with path displayed}
+\label{fig:task4}
+\end{figure}
+
+\newpage
+\bibliographystyle{alpha}
+\bibliography{sample}
+
+\end{document}

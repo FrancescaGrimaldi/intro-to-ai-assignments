@@ -1,0 +1,181 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{titling}
+
+% Page size and margins
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Language setting
+\usepackage[english]{babel}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+% Header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{} % empties all fields
+\fancyhead[R]{Filippini, Grimaldi}
+\fancyhead[L]{TDT4136 - Assignment 3}
+
+% Images
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{float}
+
+% Tables
+\usepackage{tabu}
+\usepackage{caption} 
+\captionsetup[table]{skip=2pt}
+\usepackage[table]{xcolor}
+\usepackage{array}
+
+% Lists
+\usepackage{listings}
+\usepackage{enumitem}
+\setlist{topsep=2pt, itemsep=2pt, partopsep=2pt, parsep=2pt}
+
+% renew/new command
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}
+}
+
+% Title and info
+\title{%
+    \huge Assignment 3}
+
+\subtitle{%
+    TDT4136 - Introduction to Artificial Intelligence \\
+    Fall 2023
+    }
+
+\author{%
+  Elena Filippini\\
+  Francesca Grimaldi
+}
+
+\date{06/10/2023}
+
+
+\begin{document}
+
+% TITLE
+\maketitle
+
+
+% INDEX
+% \tableofcontents
+
+
+% SECTION
+\section{Sudoku boards as CSPs}
+
+The purpose of this assignment is to implement a general solver for \textbf{Constraint Satisfaction Problems}, using \textit{backtracking search} and the arc-consistency algorithm AC-3. This is used to solve Sudoku boards of different difficulties (\texttt{easy}, \texttt{medium}, \texttt{hard} and \texttt{very hard}).
+
+We completed the functions in the \texttt{code-handout} \cite{code} based on the pseudo-code provided by the book \cite{ai}, and we tested our implementation using the given boards.
+
+The following subsection contains details to explain our choices for what concerns some of the functions to implement. All the results of the code execution are provided in Sections \ref{sect2}-\ref{sect5}: for each board, it is possible to see the solution as well as the number of times that the \texttt{backtrack} function was called and, eventually, failed. Lastly, Section \ref{sect6} contains our comments on the outcomes.
+
+\subsection{Implementation choices}
+As it is possible to see from our code, we decided to use the \textbf{Minimum Remaining Values} (MRV) heuristic to choose the next unassigned variable to consider in the context of the \texttt{backtrack} function (\texttt{Select-Unassigned-Variable}).
+Since the program is designed to solve Sudokus, we opted for the variable with the fewest values in the domain to be assigned next.
+
+As per the \texttt{Order-Domain-Values} mentioned in the book pseudo-code, we decided to access the values in the order in which they are stored in the dictionary.
+
+\newpage
+\section{Easy board}\label{sect2}
+%\subsection{How to create Sections and Subsections}
+Task:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\linewidth]{img/easyboard.png}
+\caption{Easy board}
+\label{fig:easyboard}
+\end{figure}
+
+Program solution:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{img/easy.png}
+\caption{\label{fig:easy}Program's solution for board A}
+\end{figure}
+
+As shown in figure \ref{fig:easy}, the function backtrack is called 1 time, and it never fails.
+
+\newpage
+\section{Medium board}\label{sect3}
+Task:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\linewidth]{img/mediumboard.png}
+\caption{Medium board}
+\label{fig:mediumboard}
+\end{figure}
+
+Program solution:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{img/medium.png}
+\caption{\label{fig:medium}Program's solution for board A}
+\end{figure}
+As shown in figure \ref{fig:medium}, the \texttt{backtrack} function is called 2 times, and it never fails.
+
+\newpage
+\section{Hard board}\label{sect4}
+Task:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\linewidth]{img/hardboard.png}
+\caption{Hard board}
+\label{fig:hardboard}
+\end{figure}
+
+Program solution:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{img/hard.png}
+\caption{\label{fig:hard}Program's solution for Hard board}
+\end{figure}
+As shown in figure \ref{fig:hard}, the \texttt{backtrack} function is called 7 times, and it fails 2 times.
+
+\newpage
+\section{Very hard board}\label{sect5}
+Task:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\linewidth]{img/veryhardboard.png}
+\caption{Very Hard board}
+\label{fig:veryhardboard}
+\end{figure}
+
+Program solution:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{img/veryhard.png}
+\caption{\label{fig:veryhard}Program's solution for Very Hard board}
+\end{figure}
+
+As shown in figure \ref{fig:veryhard}, the \texttt{backtrack} function is called 56 times, and it fails 43 times.
+
+\newpage
+\section{Comments about the results}\label{sect6}
+The \texttt{backtrack} function repeatedly chooses a variable and tries all the values in its domain, and tries to extend each value through a recursive call \cite{ai}. 
+
+The results obtained for Sudoku puzzles of varying difficulty levels align with this theory. In simpler puzzles, only a few attempts are typically needed, while the highly challenging ones demand a more exhaustive search.
+This can also be verified trying to solve the Sudoku, in the case of the first board, it is sufficient to look at the values stored in the rows and columns to find the correct values, whereas in the very hard board, multiple attempts are often required.
+
+AC-3 algorithm is considered effective to solve easy Sudoku puzzles, and indeed the collected data show that increasing the computational complexity leads to a significant increase of the function calls, as well as the amount of failures of the function.
+As described in sections \ref{sect2} and \ref{sect3}, the number of function calls experience a slightly change between easy and medium boards, passing from 1 to 2, while the function fails remain equal to zero.
+From medium to hard, the changes appear more evident, as the number of calls is increased more than twice in \ref{sect4}. Analogously, the amount of failures goes from 0 to 2.
+The most significant change is seen from hard \ref{sect5} to very hard \ref{sect6}: the number of function calls pass from 7 to 56, of which 43 failures.
+
+In light of these findings, we expect that further increasing the board's difficulty would result in a task that is too complex to be completed in a reasonable amount of time and function calls using AC-3, requiring other algorithms with more complex strategies.
+
+\bibliographystyle{alpha}
+\bibliography{sample}\textit{}
+
+\end{document}
