@@ -1,6 +1,6 @@
-[submodule "assignment 2/a-star"]
-	path = assignment 2/a-star
+[submodule "assignment 2/code/a-star"]
+	path = assignment 2/code/a-star
 	url = https://github.com/FrancescaGrimaldi/a-star.git
-[submodule "assignment 3/sudoku-csp"]
-	path = assignment 3/sudoku-csp
+[submodule "assignment 3/code/sudoku-csp"]
+	path = assignment 3/code/sudoku-csp
 	url = https://github.com/FrancescaGrimaldi/sudoku-csp.git
