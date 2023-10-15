@@ -2,21 +2,42 @@
 \usepackage[utf8]{inputenc}
 \usepackage{titling}
 
+% Page size and margins
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Language setting
+\usepackage[english]{babel}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{minted}
+
 % Header
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhead{} % empties all fields
-\fancyhead[L]{TDT4136 - Assignment 1}
 \fancyhead[R]{Crespi, Grimaldi}
+\fancyhead[L]{TDT4136 - Assignment 1}
 
-% Links
-\usepackage{hyperref}
+% Images
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{float}
+
+% Tables
+\usepackage{tabu}
+\usepackage{caption} 
+\captionsetup[table]{skip=2pt}
+\usepackage[table]{xcolor}
+\usepackage{array}
 
 % Lists
 \usepackage{listings}
 \usepackage{enumitem}
 \setlist{topsep=2pt, itemsep=2pt, partopsep=2pt, parsep=2pt}
 
+% renew/new command
 \newcommand{\subtitle}[1]{%
   \posttitle{%
     \par\end{center}
@@ -25,35 +46,29 @@
 }
 
 % Title and info
-\setlength{\droptitle}{-10em}
-
 \title{%
-    % \vspace{4cm}
-    \huge Assignment 1
-    }
+    \huge Assignment 1}
 
 \subtitle{%
     TDT4136 - Introduction to Artificial Intelligence \\
     Fall 2023
-    % \vspace{7cm}
     }
 
 \author{%
   Alessandro Crespi\\
-  Francesca Grimaldi\\
+  Francesca Grimaldi
 }
 
 \date{}
+
 
 \begin{document}
 
 % TITLE
 \maketitle
 
-
 % INDEX
 % \tableofcontents
-
 
 % QUESTION 1
 \section{What is Artificial Intelligence (AI)? Include at least 3 definitions of AI that are not covered in the
@@ -181,7 +196,7 @@ Yes, this agent could be rational.
 Despite having no internal state, the fact that it can perceive both squares (which makes the environment fully observable) means that it could move and suck only when the squares are actually dirty.
 
 An agent function could be the following, in which the parameter \texttt{location} indicates the current position of the vacuum cleaner (that can be either A or B), \texttt{cleanA} and \texttt{cleanB} are booleans whose value is \texttt{True} if the square is clean and \texttt{False} if it is dirty:
-\begin{lstlisting}[language=Python]
+\begin{minted}{Python}
 def agent_function([location, cleanA, cleanB]):
     if location == A:	#location can be A or B
         if cleanA == False:
@@ -197,7 +212,8 @@ def agent_function([location, cleanA, cleanB]):
             moveToA()
         else:
             skip()	#stay in the same place and do nothing
-\end{lstlisting}
+
+\end{minted}
 
 
 % QUESTION 7
@@ -247,7 +263,6 @@ We can consider the environment in object as a complete \textbf{known} one becau
 \texttt{-} It is difficult to estimate the utility function based on the current knowledge, as the utility of an action is hard to quantify.\\
 \texttt{-} Require ingenious algorithms.
 
-
 % REFERENCES
 \newpage
 \section*{References}
@@ -260,8 +275,8 @@ We can consider the environment in object as a complete \textbf{known} one becau
     \item{Patterson, D. W. (1990). \textit{Introduction to Artificial Intelligence and Expert Systems}. Prentice-Hall International.}
     \item{Russell, S. J. \& Norvig, P. (2020). \textit{Artificial intelligence: a modern approach}. 4th Global ed. Boston: Pearson.}
     \item{Syllogism. [no date]. \textit{New World Encyclopedia}. Available at:\\ \href{https://www.newworldencyclopedia.org/entry/Syllogism}{https://www.newworldencyclopedia.org/entry/Syllogism} (Accessed: 7 September 2023).}
-    \item{Total Turing Test. (2010). \textit{University of Alberta's Dictionary of Cognitive Science}. Available at: \href{http://www.bcp.psych.ualberta.ca/~mike/Pearl_Street/Dictionary/contents/T/totalTuring.html}{http://www.bcp.psych.ualberta.ca/\~mike/Pearl\_Street/\\Dictionary/contents/T/totalTuring.html} (Accessed: 7 September 2023).}
-    \item{Turing test. (2015). \textit{Wikipedia}. Available at: \href{https://en.wikipedia.org/wiki/Turing_test}{ https://en.wikipedia.org/wiki/\\Turing\_test}. (Accessed: 7 September 2023).}
+    \item{Total Turing Test. (2010). \textit{University of Alberta's Dictionary of Cognitive Science}. Available at: \href{http://www.bcp.psych.ualberta.ca/~mike/Pearl_Street/Dictionary/contents/T/totalTuring.html}{http://www.bcp.psych.ualberta.ca/\~mike/Pearl\_Street/Dictionary/contents/T/totalTuring.html} (Accessed: 7 September 2023).}
+    \item{Turing test. (2015). \textit{Wikipedia}. Available at: \href{https://en.wikipedia.org/wiki/Turing_test}{ https://en.wikipedia.org/wiki/Turing\_test}. (Accessed: 7 September 2023).}
 \end{itemize}
 
 \end{document}
