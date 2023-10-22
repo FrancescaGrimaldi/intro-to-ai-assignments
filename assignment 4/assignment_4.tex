@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{titling}
+
+% Page size and margins
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Language setting
+\usepackage[english]{babel}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{minted}
+
+% Header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{} % empties all fields
+\fancyhead[R]{Filippini, Grimaldi}
+\fancyhead[L]{TDT4136 - Assignment 4}
+
+% Images
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{float}
+
+% Tables
+\usepackage{tabu}
+\usepackage{caption} 
+\captionsetup[table]{skip=2pt}
+\usepackage[table]{xcolor}
+\usepackage{array}
+
+% Lists
+\usepackage{listings}
+\usepackage{enumitem}
+\setlist{topsep=2pt, itemsep=2pt, partopsep=2pt, parsep=2pt}
+
+% renew/new command
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}
+}
+
+% Title and info
+\title{%
+    \huge Assignment 4}
+
+\subtitle{%
+    TDT4136 - Introduction to Artificial Intelligence \\
+    Fall 2023
+    }
+
+\author{%
+  Elena Filippini\\
+  Francesca Grimaldi
+}
+
+\date{}
+
+
+\begin{document}
+
+% TITLE
+\maketitle
+
+
+% INDEX
+% \tableofcontents
+
+% INTRODUCTION
+\section{Introduction}
+In this assignment we implemented the Minimax algorithm following the pseudocode in the AIMA book \cite{ai} in the Pac-Man Projects, developed at UC Berkeley \cite{berkeley}.
+
+More specifically, we completed the classes \texttt{MinimaxAgent} and \texttt{AlphaBetaAgent} with \texttt{maxValue} and \texttt{minValue} functions. These are invoked recursively by \texttt{minimaxSearch} and \texttt{alphabetaSearch} respectively, based on the index of the current agent (which is \texttt{0} if the player is Pacman and a number \texttt{>=1} if it is the turn of one of the ghosts). The search stops when one of the terminal conditions is met: the tree was expanded to the maximum depth, or Pacman won or lost the game.
+
+The algorithm in the \texttt{AlphaBetaAgent} differs from that of \texttt{MinimaxAgent} for the two bounds introduced: $\alpha$ and $\beta$.
+$\alpha$ represents the value of the best choice we have found so far at any choice point along the path for MAX, while $\beta$ is the value of the best choice found so far for MIN \cite{ai}.
+
+
+The code downloaded from \cite{berkeley} includes the program \texttt{autograder.py}, used to run various tests in order to evaluate our solutions. 
+
+The program's outputs are presented in sections \ref{min} and \ref{alfabeta}.
+
+% MINIMAX
+\section{Minimax}\label{min}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/q2-a.png}
+    \caption{Question 2 output (a)}
+    \label{fig:q2-a}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/q2-b.png}
+    \caption{Question 2 output (b)}
+    \label{fig:q2-b}
+\end{figure}
+
+
+% ALPHA-BETA PRUNING
+\section{Alpha-Beta Pruning}\label{alfabeta}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/q3-a.png}
+    \caption{Question 3 output (a)}
+    \label{fig:q3-a}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/q3-b.png}
+    \caption{Question 3 output (b)}
+    \label{fig:q3-b}
+\end{figure}
+
+\bibliographystyle{plain}
+\bibliography{sample}
+
+\end{document}
